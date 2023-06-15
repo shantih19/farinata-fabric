@@ -1,0 +1,54 @@
+{
+	"schemaVersion": 1,
+	"id": "farinata",
+	"version": "${version}",
+	"name": "Farinata",
+	"description": "This is an example description! Tell everyone what your mod is about!",
+	"authors": [
+		"Me!"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/farinata/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			{
+				"value": "com.shantih19.farinata.ExampleMod",
+				"adapter": "kotlin"
+			}
+		],
+		"client": [
+			{
+				"value": "com.shantih19.farinata.ExampleModClient",
+				"adapter": "kotlin"
+			}
+		],
+		"fabric-datagen": [
+			{
+				"value": "com.shantih19.farinata.ExampleModDataGenerator",
+				"adapter": "kotlin"
+			}
+		]
+	},
+	"mixins": [
+		"farinata.mixins.json",
+		{
+			"config": "farinata.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.14.21",
+		"minecraft": "~1.19.4",
+		"java": ">=17",
+		"fabric-api": "*",
+		"fabric-language-kotlin": ">=1.8.22"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
