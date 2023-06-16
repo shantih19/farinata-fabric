@@ -1,11 +1,9 @@
 {
-	"required": true,
-	"package": "com.shantih19.farinata.mixin.client",
-	"compatibilityLevel": "JAVA_17",
-	"client": [
-		"ExampleClientMixin"
-	],
-	"injectors": {
-		"defaultRequire": 1
-	}
+  "required": true,
+  "package": "com.shantih19.farinata.mixin.client",
+  "compatibilityLevel": "JAVA_17",
+  "client": ["FarinataClientMixin"],
+  "injectors": {
+    "defaultRequire": 1
+  }
 }
