@@ -1,24 +1,44 @@
 package com.shantih19.farinata
 
+import com.shantih19.farinata.block.FarinataBlock
+import com.shantih19.farinata.items.ChickpeaSlurryItem
+import com.shantih19.farinata.items.ChickpeasItem
+import com.shantih19.farinata.items.FarinataItem
+import com.shantih19.farinata.items.RoastedChickpeasItem
 import net.fabricmc.api.ModInitializer
-import net.minecraft.item.Item
-import net.minecraft.registry.Registry
-import net.minecraft.registry.Registries
-import net.minecraft.util.Identifier
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents.ModifyEntries
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry
+import net.minecraft.item.ItemGroups
+import net.minecraft.registry.Registries
+import net.minecraft.registry.Registry
+import net.minecraft.util.Identifier
 import org.slf4j.LoggerFactory
+
 
 object FarinataMod : ModInitializer {
     private val logger = LoggerFactory.getLogger("farinata")
 
 
-    @JvmField public val CHICKPEAS = Registry.register(Registries.ITEM, Identifier("farinata", "chickpeas"), ChickpeasItem)
-    @JvmField public val CHICKPEA_FLOUR = Registry.register(Registries.ITEM, Identifier("farinata", "chickpeaflour"), ChickpeaFlourItem)
-    @JvmField public val CHICKPEA_SLURRY = Registry.register(Registries.ITEM, Identifier("farinata", "chickpeaslurry"), ChickpeaSlurryItem)
+    @JvmField val CHICKPEAS: ChickpeasItem = Registry.register(Registries.ITEM, Identifier("farinata", "chickpeas"), ChickpeasItem)
+    @JvmField val CHICKPEA_FLOUR: ChickpeaFlourItem = Registry.register(Registries.ITEM, Identifier("farinata", "chickpeaflour"), ChickpeaFlourItem)
+    @JvmField val CHICKPEA_SLURRY: ChickpeaSlurryItem = Registry.register(Registries.ITEM, Identifier("farinata", "chickpeaslurry"), ChickpeaSlurryItem)
+    @JvmField val ROASTED_CHICKPEAS: RoastedChickpeasItem = Registry.register(Registries.ITEM, Identifier("farinata", "roastedchickpeas"), RoastedChickpeasItem)
+    @JvmField val FARINATA_ITEM: FarinataItem = Registry.register(Registries.ITEM, Identifier("farinata", "farinataitem"), FarinataItem)
+    @JvmField val FARINATA_BLOCK: FarinataBlock = Registry.register(Registries.BLOCK, Identifier("farinata", "farinatablock"), FarinataBlock)
 
     override fun onInitialize() {
+        logger.info("Farinata time!")
         CompostingChanceRegistry.INSTANCE.add(CHICKPEAS, 0.2f)
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.FOOD_AND_DRINK)
+            .register(ModifyEntries { content: FabricItemGroupEntries ->
+                content.add(CHICKPEAS)
+                content.add(ROASTED_CHICKPEAS)
+                content.add(CHICKPEA_FLOUR)
+                content.add(CHICKPEA_SLURRY)
+                content.add(FARINATA_ITEM)
+            })
     }
 
 }

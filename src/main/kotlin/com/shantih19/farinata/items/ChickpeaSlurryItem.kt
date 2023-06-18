@@ -1,4 +1,4 @@
-package com.shantih19.farinata
+package com.shantih19.farinata.items
 
 import net.minecraft.item.Item
 import net.minecraft.item.FoodComponent
@@ -8,9 +8,10 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings
 
 val sickEffect = StatusEffectInstance(StatusEffects.NAUSEA,10,3)
 
-val chickpeaSlurryFoodComponent = FoodComponent.Builder().saturationModifier(0.1f).hunger(1).alwaysEdible().statusEffect(sickEffect, 0.7f).build()
+val chickpeaSlurryFoodComponent: FoodComponent = FoodComponent.Builder().saturationModifier(0.1f).hunger(1).alwaysEdible().statusEffect(
+    sickEffect, 0.7f).build()
 
-val chickpeaSlurrySettings = FabricItemSettings().food(chickpeaSlurryFoodComponent)
+val chickpeaSlurrySettings: FabricItemSettings = FabricItemSettings().food(chickpeaSlurryFoodComponent)
 
 object ChickpeaSlurryItem : Item(chickpeaSlurrySettings) {
 
