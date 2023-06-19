@@ -1,5 +1,8 @@
 {
   "variants": {
-    "": { "model": "farinata:block/farinata_full" }
+    "bites=4": { "model": "farinata:block/farinata_full" },
+    "bites=3": { "model": "farinata:block/farinata_three" },
+    "bites=2": { "model": "farinata:block/farinata_two" },
+    "bites=1": { "model": "farinata:block/farinata_one" }
   }
 }

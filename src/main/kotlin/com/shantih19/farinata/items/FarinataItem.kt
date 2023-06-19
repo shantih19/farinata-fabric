@@ -5,7 +5,7 @@ import net.minecraft.item.FoodComponent
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings
 import com.shantih19.farinata.block.FarinataBlock
 
-val farinataFoodComponent: FoodComponent = FoodComponent.Builder().saturationModifier(12f).hunger(10).build()
+val farinataFoodComponent: FoodComponent = FoodComponent.Builder().saturationModifier(16f).hunger(12).build()
 
 val farinataSettings: FabricItemSettings = FabricItemSettings().food(farinataFoodComponent)
 
