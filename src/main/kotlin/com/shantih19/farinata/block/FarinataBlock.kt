@@ -2,11 +2,8 @@ package com.shantih19.farinata.block
 
 import com.google.common.collect.ImmutableMap
 import net.fabricmc.fabric.api.`object`.builder.v1.block.FabricBlockSettings
+import net.minecraft.block.*
 import net.minecraft.block.AbstractBlock.AbstractBlockState
-import net.minecraft.block.Block
-import net.minecraft.block.BlockState
-import net.minecraft.block.MapColor
-import net.minecraft.block.Material
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.state.StateManager
 import net.minecraft.state.property.IntProperty
@@ -17,7 +14,9 @@ import net.minecraft.util.hit.BlockHitResult
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.shape.VoxelShape
 import net.minecraft.util.shape.VoxelShapes
+import net.minecraft.world.BlockView
 import net.minecraft.world.World
+import org.slf4j.LoggerFactory
 import java.util.function.Function
 
 var farinataBlockSettings: FabricBlockSettings = FabricBlockSettings.of(Material.Builder(MapColor.PALE_YELLOW).burnable().destroyedByPiston().notSolid().build())
@@ -26,17 +25,18 @@ var voxelOne: VoxelShape = VoxelShapes.union(VoxelShapes.cuboid(0.125, 0.0, 0.12
 var voxelTwo: VoxelShape = VoxelShapes.union(voxelOne, VoxelShapes.cuboid(0.5, 0.0, 0.125, 0.875, 0.0625, 0.5),VoxelShapes.cuboid(0.875, 0.0, 0.3125, 1.0, 0.0625, 0.5),VoxelShapes.cuboid(0.5, 0.0, 0.0, 0.6875, 0.0625, 0.125),VoxelShapes.cuboid(0.875, 0.0, 0.1875, 0.9375, 0.0625, 0.3125), VoxelShapes.cuboid(0.6875, 0.0, 0.0625, 0.8125, 0.0625, 0.125))
 var voxelThree: VoxelShape = VoxelShapes.union(voxelTwo, VoxelShapes.cuboid(0.5, 0.0, 0.5, 0.875, 0.0625, 0.875),VoxelShapes.cuboid(0.5, 0.0, 0.875, 0.6875, 0.0625, 1.0),VoxelShapes.cuboid(0.875, 0.0, 0.5, 1.0, 0.0625, 0.6875),VoxelShapes.cuboid(0.6875, 0.0, 0.875, 0.8125, 0.0625, 0.9375),VoxelShapes.cuboid(0.875, 0.0, 0.6875, 0.9375, 0.0625, 0.8125))
 var voxelFour: VoxelShape = VoxelShapes.union(voxelThree, VoxelShapes.cuboid(0.125, 0.0, 0.5, 0.5, 0.0625, 0.875),VoxelShapes.cuboid(0.0, 0.0, 0.5, 0.125, 0.0625, 0.6875),VoxelShapes.cuboid(0.3125, 0.0, 0.875, 0.5, 0.0625, 1.0),VoxelShapes.cuboid(0.0625, 0.0, 0.6875, 0.125, 0.0625, 0.8125),VoxelShapes.cuboid(0.1875, 0.0, 0.875, 0.3125, 0.0625, 0.9375))
-
+@JvmField var BITES: IntProperty = Properties.BITES
 
 object FarinataBlock: Block(farinataBlockSettings) {
-
-    @JvmField var BITES: IntProperty = Properties.BITES
+    private val logger = LoggerFactory.getLogger("farinata")
 
     @JvmField var SHAPES: ImmutableMap<BlockState, VoxelShape> = ImmutableMap.of(
             defaultState.with(BITES, 4), voxelFour,
             defaultState.with(BITES, 3), voxelThree,
             defaultState.with(BITES, 2), voxelTwo,
-            defaultState.with(BITES, 1), voxelOne
+            defaultState.with(BITES, 1), voxelOne,
+            defaultState.with(BITES, 0), voxelOne,
+
     )
     init {
         super.setDefaultState(defaultState.with(BITES, 4))
@@ -46,20 +46,33 @@ object FarinataBlock: Block(farinataBlockSettings) {
     }
 
     override fun onUse(state: BlockState?, world: World?, pos: BlockPos?, player: PlayerEntity?, hand: Hand?, hit: BlockHitResult?): ActionResult {
-        var bites = world?.getBlockState(pos)?.get(BITES)
-        if (bites!! > 0) {
-            player?.hungerManager?.add(3, 4f)
-            world?.setBlockState(pos, state?.with(BITES, bites - 1))
+        if (world?.isClient == false) {
+            logger.info(world.isClient.toString())
+            logger.info(hand.toString())
+            var bites = world.getBlockState(pos)?.get(BITES)
+            if (bites!! > 0) {
+                player?.hungerManager?.add(3, 4f)
+                world.setBlockState(pos, state?.with(BITES, bites - 1))
+            }
+            bites = world.getBlockState(pos)?.get(BITES)
+            if (bites!! == 0) {
+                world.breakBlock(pos, false)
+            }
         }
-        bites = world?.getBlockState(pos)?.get(BITES)
-        if (bites!! == 0) {
-            world?.breakBlock(pos, false)
-        }
-        return super.onUse(state, world, pos, player, hand, hit)
+        return ActionResult.SUCCESS
     }
 
-    override fun getShapesForStates(stateToShape: Function<BlockState, VoxelShape>?): ImmutableMap<BlockState, VoxelShape> {
-        return this.SHAPES
+    override fun getOutlineShape(
+        state: BlockState?,
+        world: BlockView?,
+        pos: BlockPos?,
+        context: ShapeContext?
+    ): VoxelShape {
+        var shape: VoxelShape? = SHAPES[state]
+        if (shape == null) {
+            return VoxelShapes.fullCube()
+        }
+        return shape
     }
 
 }

@@ -25,8 +25,8 @@ object FarinataMod : ModInitializer {
     @JvmField val CHICKPEA_FLOUR: ChickpeaFlourItem = Registry.register(Registries.ITEM, Identifier("farinata", "chickpeaflour"), ChickpeaFlourItem)
     @JvmField val CHICKPEA_SLURRY: ChickpeaSlurryItem = Registry.register(Registries.ITEM, Identifier("farinata", "chickpeaslurry"), ChickpeaSlurryItem)
     @JvmField val ROASTED_CHICKPEAS: RoastedChickpeasItem = Registry.register(Registries.ITEM, Identifier("farinata", "roastedchickpeas"), RoastedChickpeasItem)
-    @JvmField val FARINATA_ITEM: FarinataItem = Registry.register(Registries.ITEM, Identifier("farinata", "farinataitem"), FarinataItem)
-    @JvmField val FARINATA_BLOCK: FarinataBlock = Registry.register(Registries.BLOCK, Identifier("farinata", "farinatablock"), FarinataBlock)
+    @JvmField val FARINATA_ITEM: FarinataItem = Registry.register(Registries.ITEM, Identifier("farinata", "farinata"), FarinataItem)
+    @JvmField val FARINATA_BLOCK: FarinataBlock = Registry.register(Registries.BLOCK, Identifier("farinata", "farinata"), FarinataBlock)
 
     override fun onInitialize() {
         logger.info("Farinata time!")

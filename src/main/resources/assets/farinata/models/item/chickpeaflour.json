@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "farinata:item/chickpeas"
+    "layer0": "farinata:item/chickpeaflour"
   }
 }
