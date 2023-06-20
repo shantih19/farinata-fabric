@@ -22,13 +22,34 @@ object FarinataMod : ModInitializer {
     private val logger = LoggerFactory.getLogger("farinata")
 
 
-    @JvmField val CHICKPEAS: ChickpeasItem = Registry.register(Registries.ITEM, Identifier("farinata", "chickpeas"), ChickpeasItem)
-    @JvmField val CHICKPEA_FLOUR: ChickpeaFlourItem = Registry.register(Registries.ITEM, Identifier("farinata", "chickpeaflour"), ChickpeaFlourItem)
-    @JvmField val CHICKPEA_SLURRY: ChickpeaSlurryItem = Registry.register(Registries.ITEM, Identifier("farinata", "chickpeaslurry"), ChickpeaSlurryItem)
-    @JvmField val ROASTED_CHICKPEAS: RoastedChickpeasItem = Registry.register(Registries.ITEM, Identifier("farinata", "roastedchickpeas"), RoastedChickpeasItem)
-    @JvmField val FARINATA_ITEM: FarinataItem = Registry.register(Registries.ITEM, Identifier("farinata", "farinata"), FarinataItem)
-    @JvmField val FARINATA_BLOCK: FarinataBlock = Registry.register(Registries.BLOCK, Identifier("farinata", "farinata"), FarinataBlock)
-    @JvmField val CHICKPEA_CROP: ChickpeaCropBlock = Registry.register(Registries.BLOCK, Identifier("farinata", "chickpeacrop"), ChickpeaCropBlock)
+    @JvmField
+    val CHICKPEAS: ChickpeasItem =
+        Registry.register(Registries.ITEM, Identifier("farinata", "chickpeas"), ChickpeasItem)
+
+    @JvmField
+    val CHICKPEA_FLOUR: ChickpeaFlourItem =
+        Registry.register(Registries.ITEM, Identifier("farinata", "chickpeaflour"), ChickpeaFlourItem)
+
+    @JvmField
+    val CHICKPEA_SLURRY: ChickpeaSlurryItem =
+        Registry.register(Registries.ITEM, Identifier("farinata", "chickpeaslurry"), ChickpeaSlurryItem)
+
+    @JvmField
+    val ROASTED_CHICKPEAS: RoastedChickpeasItem =
+        Registry.register(Registries.ITEM, Identifier("farinata", "roastedchickpeas"), RoastedChickpeasItem)
+
+    @JvmField
+    val FARINATA_ITEM: FarinataItem =
+        Registry.register(Registries.ITEM, Identifier("farinata", "farinata"), FarinataItem)
+
+    @JvmField
+    val FARINATA_BLOCK: FarinataBlock =
+        Registry.register(Registries.BLOCK, Identifier("farinata", "farinata"), FarinataBlock)
+
+    @JvmField
+    val CHICKPEA_CROP: ChickpeaCropBlock =
+        Registry.register(Registries.BLOCK, Identifier("farinata", "chickpeacrop"), ChickpeaCropBlock)
+
     override fun onInitialize() {
         logger.info("Farinata time!")
         CompostingChanceRegistry.INSTANCE.add(CHICKPEAS, 0.2f)

@@ -4,7 +4,9 @@
   "version": "${version}",
   "name": "Farinata",
   "description": "Farinata",
-  "authors": ["shantih19"],
+  "authors": [
+    "shantih19"
+  ],
   "contact": {
     "homepage": "https://fabricmc.net/",
     "sources": "https://github.com/shantih19/farinata-fabric"

@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:smelting",
+  "category": "food",
+  "cookingtime": 90,
+  "experience": 0.25,
+  "group": "farinata",
+  "ingredient": {
+    "item": "farinata:chickpeas"
+  },
+  "result": "farinata:roastedchickpeas"
+}

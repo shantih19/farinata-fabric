@@ -2,7 +2,9 @@
   "required": true,
   "package": "com.shantih19.farinata.mixin",
   "compatibilityLevel": "JAVA_17",
-  "mixins": ["FarinataMixin"],
+  "mixins": [
+    "FarinataMixin"
+  ],
   "injectors": {
     "defaultRequire": 1
   }
