@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "age=0": {
+      "model": "farinata:block/chickpeacrop0"
+    },
+    "age=1": {
+      "model": "farinata:block/chickpeacrop1"
+    },
+    "age=2": {
+      "model": "farinata:block/chickpeacrop2"
+    },
+    "age=3": {
+      "model": "farinata:block/chickpeacrop3"
+    },
+    "age=4": {
+      "model": "farinata:block/chickpeacrop4"
+    },
+    "age=5": {
+      "model": "farinata:block/chickpeacrop5"
+    },
+    "age=6": {
+      "model": "farinata:block/chickpeacrop6"
+    },
+    "age=7": {
+      "model": "farinata:block/chickpeacrop7"
+    }
+  }
+}

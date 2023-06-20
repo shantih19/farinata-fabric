@@ -1,5 +1,6 @@
 package com.shantih19.farinata
 
+import com.shantih19.farinata.block.ChickpeaCropBlock
 import com.shantih19.farinata.block.FarinataBlock
 import com.shantih19.farinata.items.ChickpeaSlurryItem
 import com.shantih19.farinata.items.ChickpeasItem
@@ -27,7 +28,7 @@ object FarinataMod : ModInitializer {
     @JvmField val ROASTED_CHICKPEAS: RoastedChickpeasItem = Registry.register(Registries.ITEM, Identifier("farinata", "roastedchickpeas"), RoastedChickpeasItem)
     @JvmField val FARINATA_ITEM: FarinataItem = Registry.register(Registries.ITEM, Identifier("farinata", "farinata"), FarinataItem)
     @JvmField val FARINATA_BLOCK: FarinataBlock = Registry.register(Registries.BLOCK, Identifier("farinata", "farinata"), FarinataBlock)
-
+    @JvmField val CHICKPEA_CROP: ChickpeaCropBlock = Registry.register(Registries.BLOCK, Identifier("farinata", "chickpeacrop"), ChickpeaCropBlock)
     override fun onInitialize() {
         logger.info("Farinata time!")
         CompostingChanceRegistry.INSTANCE.add(CHICKPEAS, 0.2f)
