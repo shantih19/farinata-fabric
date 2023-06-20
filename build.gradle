@@ -1,7 +1,7 @@
 plugins {
     id 'fabric-loom' version '1.2-SNAPSHOT'
     id 'maven-publish'
-      id "org.jetbrains.kotlin.jvm" version "1.8.22"
+    id "org.jetbrains.kotlin.jvm" version "1.8.22"
     id("com.modrinth.minotaur") version "2.+"
 }
 
@@ -37,7 +37,7 @@ loom {
             vmArg "-Dfabric-api.datagen"
             vmArg "-Dfabric-api.datagen.output-dir=${file("src/main/generated")}"
             vmArg "-Dfabric-api.datagen.modid=farinata"
- 
+
             runDir "build/datagen"
         }
     }
@@ -98,7 +98,7 @@ java {
 
 jar {
     from("LICENSE") {
-        rename { "${it}_${project.archivesBaseName}"}
+        rename { "${it}_${project.archivesBaseName}" }
     }
 }
 
@@ -117,4 +117,18 @@ publishing {
         // The repositories here will be used for publishing your artifact, not for
         // retrieving dependencies.
     }
+}
+
+import com.modrinth.minotaur.dependencies.ModDependency
+
+modrinth {
+    token = System.getenv('MODRINTH_TOKEN')
+    projectId = 'XoQmP6Jc' // The ID of your Modrinth project. Slugs will not work.
+    uploadFile = remapJar // Tells Minotaur to use the remapped jar
+    gameVersions = ['1.19.4'] // An array of game versions the version supports
+    loaders = ['fabric'] // Self-explanatory.
+    dependencies = [
+            new ModDependency('P7dR8mSH', 'required'), // Creates a new required dependency on Fabric API
+            new ModDependency('Ha28R6CL', 'required')
+    ]
 }
