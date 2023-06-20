@@ -68,7 +68,7 @@ object FarinataBlock: Block(farinataBlockSettings) {
         pos: BlockPos?,
         context: ShapeContext?
     ): VoxelShape {
-        var shape: VoxelShape? = SHAPES[state]
+        val shape: VoxelShape? = SHAPES[state]
         if (shape == null) {
             return VoxelShapes.fullCube()
         }

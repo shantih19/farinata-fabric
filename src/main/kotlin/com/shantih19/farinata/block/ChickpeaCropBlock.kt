@@ -39,9 +39,5 @@ object ChickpeaCropBlock: CropBlock(chickpeasCropSettings) {
         Block.createCuboidShape(0.0, 0.0, 0.0, 16.0, 16.0, 16.0)
     )
 
-    override fun onBreak(world: World?, pos: BlockPos?, state: BlockState?, player: PlayerEntity?) {
-
-        super.onBreak(world, pos, state, player)
-    }
 
 }
