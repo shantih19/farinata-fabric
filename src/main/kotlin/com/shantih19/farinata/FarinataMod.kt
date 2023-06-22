@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory
 
 
 object FarinataMod : ModInitializer {
-    private val logger = LoggerFactory.getLogger("farinata")
+    val logger = LoggerFactory.getLogger("farinata")
 
 
     @JvmField
@@ -61,8 +61,14 @@ object FarinataMod : ModInitializer {
                 content.add(CHICKPEA_SLURRY)
                 content.add(FARINATA_ITEM)
             })
-        Registry.register(Registries.RECIPE_SERIALIZER, FarinataRecipeSerializer.ID, FarinataRecipeSerializer.Serializer )
-        Registry.register(Registries.RECIPE_TYPE, Identifier("farinata", FarinataRecipe.Type.ID), FarinataRecipe.Type)
+        logger.info("Registering recipe serializer")
+        Registry.register(
+            Registries.RECIPE_SERIALIZER,
+            Identifier("farinata:farinata_recipe"),
+            FarinataRecipeSerializer
+        )
+        logger.info("Registering recipe type")
+        Registry.register(Registries.RECIPE_TYPE, Identifier("farinata", "farinata_recipe"), FarinataRecipeType)
     }
 
 }
