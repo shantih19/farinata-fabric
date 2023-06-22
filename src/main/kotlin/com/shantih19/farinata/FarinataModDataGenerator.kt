@@ -6,7 +6,6 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider
-import net.minecraft.data.server.recipe.CookingRecipeJsonBuilder
 import net.minecraft.data.server.recipe.RecipeJsonProvider
 import net.minecraft.data.server.recipe.RecipeProvider
 import net.minecraft.data.server.recipe.ShapelessRecipeJsonBuilder
@@ -18,8 +17,6 @@ import net.minecraft.loot.entry.ItemEntry
 import net.minecraft.loot.function.SetCountLootFunction
 import net.minecraft.loot.provider.number.UniformLootNumberProvider
 import net.minecraft.predicate.StatePredicate
-import net.minecraft.recipe.Ingredient
-import net.minecraft.recipe.book.CookingRecipeCategory
 import net.minecraft.recipe.book.RecipeCategory
 import java.util.function.Consumer
 

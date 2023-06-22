@@ -61,6 +61,8 @@ object FarinataMod : ModInitializer {
                 content.add(CHICKPEA_SLURRY)
                 content.add(FARINATA_ITEM)
             })
+        Registry.register(Registries.RECIPE_SERIALIZER, FarinataRecipeSerializer.ID, FarinataRecipeSerializer.Serializer )
+        Registry.register(Registries.RECIPE_TYPE, Identifier("farinata", FarinataRecipe.Type.ID), FarinataRecipe.Type)
     }
 
 }
