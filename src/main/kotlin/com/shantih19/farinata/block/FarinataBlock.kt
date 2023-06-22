@@ -56,7 +56,6 @@ var voxelFour: VoxelShape = VoxelShapes.union(
 var BITES: IntProperty = Properties.BITES
 
 object FarinataBlock : Block(farinataBlockSettings) {
-    private val logger = LoggerFactory.getLogger("farinata")
 
     @JvmField
     var SHAPES: ImmutableMap<BlockState, VoxelShape> = ImmutableMap.of(
@@ -65,7 +64,6 @@ object FarinataBlock : Block(farinataBlockSettings) {
         defaultState.with(BITES, 2), voxelTwo,
         defaultState.with(BITES, 1), voxelOne,
         defaultState.with(BITES, 0), voxelOne,
-
         )
 
     init {
@@ -80,8 +78,6 @@ object FarinataBlock : Block(farinataBlockSettings) {
         state: BlockState?, world: World?, pos: BlockPos?, player: PlayerEntity?, hand: Hand?, hit: BlockHitResult?
     ): ActionResult {
         if (world?.isClient == false) {
-            logger.info(world.isClient.toString())
-            logger.info(hand.toString())
             var bites = world.getBlockState(pos)?.get(BITES)
             if (bites!! > 0) {
                 player?.hungerManager?.add(3, 4f)

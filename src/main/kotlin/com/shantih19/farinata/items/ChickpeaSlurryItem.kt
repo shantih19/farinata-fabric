@@ -17,6 +17,6 @@ val chickpeaSlurryFoodComponent: FoodComponent =
         sickEffect, 1f
     ).build()
 
-val chickpeaSlurrySettings: FabricItemSettings = FabricItemSettings().food(chickpeaSlurryFoodComponent).recipeRemainder(Items.BUCKET)
+val chickpeaSlurrySettings: FabricItemSettings = FabricItemSettings().food(chickpeaSlurryFoodComponent)
 
 object ChickpeaSlurryItem : Item(chickpeaSlurrySettings)

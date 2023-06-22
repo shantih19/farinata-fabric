@@ -12,6 +12,7 @@ import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents.ModifyEntries
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry
 import net.minecraft.item.ItemGroups
+import net.minecraft.recipe.RecipeType
 import net.minecraft.registry.Registries
 import net.minecraft.registry.Registry
 import net.minecraft.util.Identifier
@@ -61,14 +62,6 @@ object FarinataMod : ModInitializer {
                 content.add(CHICKPEA_SLURRY)
                 content.add(FARINATA_ITEM)
             })
-        logger.info("Registering recipe serializer")
-        Registry.register(
-            Registries.RECIPE_SERIALIZER,
-            Identifier("farinata:farinata_recipe"),
-            FarinataRecipeSerializer
-        )
-        logger.info("Registering recipe type")
-        Registry.register(Registries.RECIPE_TYPE, Identifier("farinata", "farinata_recipe"), FarinataRecipeType)
     }
 
 }

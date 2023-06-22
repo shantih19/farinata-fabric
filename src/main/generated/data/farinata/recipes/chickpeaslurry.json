@@ -1,7 +1,15 @@
 {
-  "type": "farinata:farinata_recipe",
-  "inputA": "minecraft:water_bucket",
-  "inputB": "farinata:chickpeaflour",
-  "outputItem": "farinata:chickpeaslurry",
-  "outputAmount": "1"
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "farinata:chickpeaflour"
+    },
+    {
+      "item": "minecraft:water_bucket"
+    }
+  ],
+  "result": {
+    "item": "farinata:chickpeaslurry"
+  }
 }

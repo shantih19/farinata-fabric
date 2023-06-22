@@ -27,15 +27,15 @@ class FarinataRecipeGenerator(out: FabricDataOutput) : FabricRecipeProvider(out)
         ).criterion(
             hasItem(FarinataMod.CHICKPEAS), conditionsFromItem(FarinataMod.CHICKPEAS)
         ).offerTo(exporter)
-//        FarinataRecipeJsonBuilder.create(RecipeCategory.FOOD, FarinataMod.CHICKPEA_SLURRY).input(
-//            FarinataMod.CHICKPEA_FLOUR
-//        ).input(Items.WATER_BUCKET).criterion(
-//            hasItem(
-//                FarinataMod.CHICKPEA_FLOUR
-//            ), conditionsFromItem(
-//                FarinataMod.CHICKPEA_FLOUR
-//            )
-//        ).offerTo(exporter)
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.FOOD, FarinataMod.CHICKPEA_SLURRY).input(
+            FarinataMod.CHICKPEA_FLOUR
+        ).input(Items.WATER_BUCKET).criterion(
+            hasItem(
+                FarinataMod.CHICKPEA_FLOUR
+            ), conditionsFromItem(
+                FarinataMod.CHICKPEA_FLOUR
+            )
+        ).offerTo(exporter)
         RecipeProvider.offerSmelting(
             exporter,
             listOf(FarinataMod.CHICKPEAS),
