@@ -10,7 +10,7 @@ import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
 import net.minecraft.world.World
 
-val sickEffect = StatusEffectInstance(StatusEffects.NAUSEA, 100)
+val sickEffect = StatusEffectInstance(StatusEffects.NAUSEA, 150)
 
 val chickpeaSlurryFoodComponent: FoodComponent =
     FoodComponent.Builder().saturationModifier(0.1f).hunger(1).alwaysEdible().statusEffect(

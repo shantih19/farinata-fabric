@@ -11,10 +11,13 @@ import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents.ModifyEntries
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry
+import net.fabricmc.fabric.api.registry.VillagerPlantableRegistry
+import net.minecraft.item.Item
 import net.minecraft.item.ItemGroups
-import net.minecraft.recipe.RecipeType
 import net.minecraft.registry.Registries
 import net.minecraft.registry.Registry
+import net.minecraft.registry.RegistryKeys
+import net.minecraft.registry.tag.TagKey
 import net.minecraft.util.Identifier
 import org.slf4j.LoggerFactory
 
@@ -51,9 +54,19 @@ object FarinataMod : ModInitializer {
     val CHICKPEA_CROP: ChickpeaCropBlock =
         Registry.register(Registries.BLOCK, Identifier("farinata", "chickpeacrop"), ChickpeaCropBlock)
 
+
+//    @JvmField val FARINATA_FEATURE: FarinataFeature = Registry.register(Registries.FEATURE,
+//        Identifier("farinata", "farinatafeature"), FarinataFeature)
+//
+//    @JvmField val FARINATA_FEATURE_CONFIGURED: ConfiguredFeature<DefaultFeatureConfig, FarinataFeature> =
+//        Registry.register()
+//
+//    @JvmField val FARINATA_FEATURE_PLACED: PlacedFeature = PlacedFeature(FARINATA_FEATURE_CONFIGURED, )
+
     override fun onInitialize() {
         logger.info("Farinata time!")
         CompostingChanceRegistry.INSTANCE.add(CHICKPEAS, 0.2f)
+        VillagerPlantableRegistry.register(CHICKPEAS)
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.FOOD_AND_DRINK)
             .register(ModifyEntries { content: FabricItemGroupEntries ->
                 content.add(CHICKPEAS)

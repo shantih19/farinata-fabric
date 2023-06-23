@@ -6,9 +6,13 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider
+import net.fabricmc.fabric.impl.datagen.FabricTagBuilder
+import net.minecraft.block.Block
 import net.minecraft.data.server.recipe.RecipeJsonProvider
 import net.minecraft.data.server.recipe.RecipeProvider
 import net.minecraft.data.server.recipe.ShapelessRecipeJsonBuilder
+import net.minecraft.item.Item
 import net.minecraft.item.Items
 import net.minecraft.loot.LootPool
 import net.minecraft.loot.LootTable
@@ -18,6 +22,11 @@ import net.minecraft.loot.function.SetCountLootFunction
 import net.minecraft.loot.provider.number.UniformLootNumberProvider
 import net.minecraft.predicate.StatePredicate
 import net.minecraft.recipe.book.RecipeCategory
+import net.minecraft.registry.RegistryKeys
+import net.minecraft.registry.RegistryWrapper.WrapperLookup
+import net.minecraft.registry.tag.TagKey
+import net.minecraft.util.Identifier
+import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
 class FarinataRecipeGenerator(out: FabricDataOutput) : FabricRecipeProvider(out) {
@@ -78,12 +87,24 @@ class FarinataBlockLootTableGenerator(out: FabricDataOutput) : FabricBlockLootTa
     }
 }
 
+
+@JvmField
+val FARINATA_CROP_TAG: TagKey<Block?>? = TagKey.of<Block>(RegistryKeys.BLOCK, Identifier("minecraft", "crop"))
+
+class FarinataBlockTagGenerator(out: FabricDataOutput, completableFuture: CompletableFuture<WrapperLookup>): FabricTagProvider.BlockTagProvider(out, completableFuture) {
+    override fun configure(arg: WrapperLookup?) {
+        getOrCreateTagBuilder(FARINATA_CROP_TAG).add(FarinataMod.CHICKPEA_CROP)
+    }
+
+}
+
 object FarinataModDataGenerator : DataGeneratorEntrypoint {
     override fun onInitializeDataGenerator(fabricDataGenerator: FabricDataGenerator) {
 
         val pack: FabricDataGenerator.Pack = fabricDataGenerator.createPack()
         pack.addProvider(::FarinataRecipeGenerator)
         pack.addProvider(::FarinataBlockLootTableGenerator)
+        pack.addProvider(::FarinataBlockTagGenerator)
     }
 }
 
