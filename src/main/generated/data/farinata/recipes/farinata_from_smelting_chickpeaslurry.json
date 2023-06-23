@@ -2,7 +2,7 @@
   "type": "minecraft:smelting",
   "category": "food",
   "cookingtime": 300,
-  "experience": 0.6,
+  "experience": 1.2,
   "group": "farinata",
   "ingredient": {
     "item": "farinata:chickpeaslurry"

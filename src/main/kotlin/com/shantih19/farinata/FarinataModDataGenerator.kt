@@ -7,6 +7,8 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider
+import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider
+import net.fabricmc.fabric.api.loot.v2.FabricLootPoolBuilder
 import net.fabricmc.fabric.impl.datagen.FabricTagBuilder
 import net.minecraft.block.Block
 import net.minecraft.data.server.recipe.RecipeJsonProvider
@@ -17,8 +19,11 @@ import net.minecraft.item.Items
 import net.minecraft.loot.LootPool
 import net.minecraft.loot.LootTable
 import net.minecraft.loot.condition.BlockStatePropertyLootCondition
+import net.minecraft.loot.context.LootContextType
+import net.minecraft.loot.context.LootContextTypes
 import net.minecraft.loot.entry.ItemEntry
 import net.minecraft.loot.function.SetCountLootFunction
+import net.minecraft.loot.provider.number.ConstantLootNumberProvider
 import net.minecraft.loot.provider.number.UniformLootNumberProvider
 import net.minecraft.predicate.StatePredicate
 import net.minecraft.recipe.book.RecipeCategory
@@ -27,6 +32,7 @@ import net.minecraft.registry.RegistryWrapper.WrapperLookup
 import net.minecraft.registry.tag.TagKey
 import net.minecraft.util.Identifier
 import java.util.concurrent.CompletableFuture
+import java.util.function.BiConsumer
 import java.util.function.Consumer
 
 class FarinataRecipeGenerator(out: FabricDataOutput) : FabricRecipeProvider(out) {
@@ -59,11 +65,28 @@ class FarinataRecipeGenerator(out: FabricDataOutput) : FabricRecipeProvider(out)
             listOf(FarinataMod.CHICKPEA_SLURRY),
             RecipeCategory.FOOD,
             FarinataMod.FARINATA_ITEM,
-            0.6f,
+            1.2f,
             300,
             "farinata"
         )
     }
+}
+
+class FarinataLootTableGenerator(out: FabricDataOutput) : SimpleFabricLootTableProvider(out, LootContextTypes.CHEST) {
+    override fun accept(exporter: BiConsumer<Identifier, LootTable.Builder>?) {
+        exporter?.accept(
+            Identifier("farinata", "chests/village/village_plains_house"), LootTable.builder().pool(
+                LootPool.builder().rolls(ConstantLootNumberProvider.create(1f)).with(
+                    ItemEntry.builder(FarinataMod.CHICKPEAS)
+                        .apply(SetCountLootFunction.builder(ConstantLootNumberProvider.create(1f)))
+                ).with(
+                    ItemEntry.builder(FarinataMod.CHICKPEA_FLOUR)
+                        .apply(SetCountLootFunction.builder(ConstantLootNumberProvider.create(0.3f)))
+                )
+            )
+        )
+    }
+
 }
 
 class FarinataBlockLootTableGenerator(out: FabricDataOutput) : FabricBlockLootTableProvider(out) {
@@ -91,15 +114,21 @@ class FarinataBlockLootTableGenerator(out: FabricDataOutput) : FabricBlockLootTa
 @JvmField
 val FARINATA_CROP_TAG: TagKey<Block?>? = TagKey.of<Block>(RegistryKeys.BLOCK, Identifier("minecraft", "crops"))
 
-@JvmField val FARINATA_BEE_TAG: TagKey<Block?>? = TagKey.of(RegistryKeys.BLOCK, Identifier("minecraft", "bee_growables"))
+@JvmField
+val FARINATA_BEE_TAG: TagKey<Block?>? = TagKey.of(RegistryKeys.BLOCK, Identifier("minecraft", "bee_growables"))
 
-class FarinataBlockTagGenerator(out: FabricDataOutput, completableFuture: CompletableFuture<WrapperLookup>): FabricTagProvider.BlockTagProvider(out, completableFuture) {
+class FarinataBlockTagGenerator(out: FabricDataOutput, completableFuture: CompletableFuture<WrapperLookup>) :
+    FabricTagProvider.BlockTagProvider(out, completableFuture) {
     override fun configure(arg: WrapperLookup?) {
         getOrCreateTagBuilder(FARINATA_CROP_TAG).add(FarinataMod.CHICKPEA_CROP)
         getOrCreateTagBuilder(FARINATA_BEE_TAG).add(FarinataMod.CHICKPEA_CROP)
     }
 
 }
+
+@JvmField val FARINATA_PLANTABLE_TAG: TagKey<Item?>? = TagKey.of(RegistryKeys.ITEM, Identifier("minecraft", "villager_plantable_seeds"))
+
+
 
 object FarinataModDataGenerator : DataGeneratorEntrypoint {
     override fun onInitializeDataGenerator(fabricDataGenerator: FabricDataGenerator) {
@@ -108,6 +137,7 @@ object FarinataModDataGenerator : DataGeneratorEntrypoint {
         pack.addProvider(::FarinataRecipeGenerator)
         pack.addProvider(::FarinataBlockLootTableGenerator)
         pack.addProvider(::FarinataBlockTagGenerator)
+        pack.addProvider(::FarinataLootTableGenerator)
     }
 }
 
