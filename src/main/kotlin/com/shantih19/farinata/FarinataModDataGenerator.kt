@@ -89,11 +89,14 @@ class FarinataBlockLootTableGenerator(out: FabricDataOutput) : FabricBlockLootTa
 
 
 @JvmField
-val FARINATA_CROP_TAG: TagKey<Block?>? = TagKey.of<Block>(RegistryKeys.BLOCK, Identifier("minecraft", "crop"))
+val FARINATA_CROP_TAG: TagKey<Block?>? = TagKey.of<Block>(RegistryKeys.BLOCK, Identifier("minecraft", "crops"))
+
+@JvmField val FARINATA_BEE_TAG: TagKey<Block?>? = TagKey.of(RegistryKeys.BLOCK, Identifier("minecraft", "bee_growables"))
 
 class FarinataBlockTagGenerator(out: FabricDataOutput, completableFuture: CompletableFuture<WrapperLookup>): FabricTagProvider.BlockTagProvider(out, completableFuture) {
     override fun configure(arg: WrapperLookup?) {
         getOrCreateTagBuilder(FARINATA_CROP_TAG).add(FarinataMod.CHICKPEA_CROP)
+        getOrCreateTagBuilder(FARINATA_BEE_TAG).add(FarinataMod.CHICKPEA_CROP)
     }
 
 }
