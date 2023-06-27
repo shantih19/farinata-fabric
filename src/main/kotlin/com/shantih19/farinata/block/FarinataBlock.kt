@@ -64,7 +64,7 @@ object FarinataBlock : Block(farinataBlockSettings) {
         defaultState.with(BITES, 2), voxelTwo,
         defaultState.with(BITES, 1), voxelOne,
         defaultState.with(BITES, 0), voxelOne,
-        )
+    )
 
     init {
         super.setDefaultState(defaultState.with(BITES, 4))
@@ -80,7 +80,7 @@ object FarinataBlock : Block(farinataBlockSettings) {
         if (world?.isClient == false) {
             var bites = world.getBlockState(pos)?.get(BITES)
             if (bites!! > 0) {
-                player?.hungerManager?.add(3, 4f)
+                player?.hungerManager?.add(5, 1.2f)
                 world.setBlockState(pos, state?.with(BITES, bites - 1))
             }
             bites = world.getBlockState(pos)?.get(BITES)
